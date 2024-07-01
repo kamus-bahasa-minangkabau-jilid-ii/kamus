@@ -1,0 +1,27 @@
+[Nama Aplikasi]
+$ Kamus Digital
+
+[Kategori]
+$ Aplikasi Micro
+
+[Deskripsi]
+$ Menerjemahkan kata dari bahasa Indonesia ke Minangkabau dan sebaliknya dengan data kamus bersifat statis.
+
+[Lingkungan]
+$ Website
+
+[Bahasa Pemrograman]
+$ HTML
+$ CSS
+$ JavaScript
+
+[Peralatan]
+$ Framework CSS Bootstrap 5 versi CDN: Untuk membuat tampilan antarmuka sederhana dan responsif dengan cepat.
+$ Pustaka JavaScript jQuery versi CDN dari Google Libraries: Untuk menyusun Kode Fungsi dan Tampilan Interaktif secara ringkas.
+
+[?]
+- Untuk Penerjemah Kata Indonesia-Minangkabau diperlukan jaringan internet hanya untuk mendapatkan akses ke Peralatan karena memakai CDN.
+- Untuk Penerjemah Bahasa Indonesia-Inggris membutuhkan jaringan internet untuk setiap permintaan menerjemahkan.
+- Penerjemah Bahasa Indonesia-Inggris mungkin akan mengalami "Tidak merespon" dan alasan pastinya dikarenakan fungsi ini memiliki keterbatasan karena menggunakan alat Gratis.
+- Kalian bisa membuat Akun sendiri untuk mendapatkan API milik kalian dan memperbarui Kuota Menerjemahkan.
+- Kalian masih bisa menggunakan API lama yang saya gunakan mungkin hingga 1000 pemakaian dan sekarang sudah

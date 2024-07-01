@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kamus Digital</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+    <div class="container-fluid h-100 d-flex flex-column p-0">
+        <header class="container">
+            <div class="row py-1">
+                <div class="col-auto">
+                    <a class="nav-link fw-bold fs-4" href="/">Kamus Digital</a>
+                </div>
+            </div>
+        </header>
+        <main class="container flex-fill">
+            <div class="selectLanguage row mt-3 mb-3">
+                <div class="col-4 col-sm-2 d-flex flex-column">
+                    <a href="#" class="btn btn-primary p-1 d-flex justify-content-center" data-language="id">Indonesia</a>
+                </div>
+                <div class="col-4 col-sm-2 d-flex flex-column">
+                    <a href="#" class="btn btn-light p-1 d-flex justify-content-center" data-language="en">Inggris</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <textarea class="form-control" rows="5" name="sourceText" id="sourceText" maxlength="120" placeholder="Masukkan Teks" autofocus></textarea>
+                </div>
+                <div class="col-12 col-md-6">
+                    <textarea class="form-control" rows="5" name="targetText" id="targetText" placeholder="Terjemahan" disabled></textarea>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        function translate(text, sourceLang, targetLang){
+            let settings = {
+                async: true,
+                crossDomain: true,
+                url: 'https://google-translator9.p.rapidapi.com/v2',
+                method: 'POST',
+                headers: {
+                    'x-rapidapi-key': '05583d5abfmsh06e37c839837f29p170492jsnb9d2e6580171',
+                    'x-rapidapi-host': 'google-translator9.p.rapidapi.com',
+                    'Content-Type': 'application/json'
+                },
+                processData: false,
+                data: `{"q":"${text}","source":"${sourceLang}","target":"${targetLang}","format":"text"}`
+            }
+
+            $.ajax(settings).done(function (response) {
+                $('#targetText').val('');
+                $('#targetText').val(response.data.translations[0].translatedText);
+            });
+        }
+
+        var inputDelay, switchLang = {"id": "en", "en": "id"}, sourceLang = "id", targetLang = "en";
+
+        $('#sourceText').on('input', function(){
+            clearTimeout(inputDelay);
+
+            inputDelay = setTimeout(() => {
+                translate($('#sourceText').val(), sourceLang, targetLang);
+            }, 250);
+        });
+
+        $('.selectLanguage a.btn').each(function (index, element) {
+            $(element).click(function(){
+                $('.selectLanguage a.btn').removeClass('btn-primary');
+                $('.selectLanguage a.btn').toggleClass('btn-light');
+                $(element).addClass('btn-primary');
+                sourceLang = $(element).attr('data-language');
+                targetLang = switchLang[$(element).attr('data-language')];
+
+                $("#sourceText").val($('#targetText').val());
+                if($("#sourceText").val()){
+                    translate($('#sourceText').val(), sourceLang, targetLang);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
